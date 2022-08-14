@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style2.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="header_section">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="logo" href="/"><img src="{{ url_for('static',filename='images/logo.png') }}"></a>
+        <h1 class="head">MUSIC REVIEWER </h1>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="search_icon"><a href="/register"><img src="{{ url_for('static',filename='images/user-icon.png') }}"><span
+                    class="padding_left_15">Sign In</span></a></div>
+            <div class="search_icon"><a href="/login"><img src="{{ url_for('static',filename='images/user-icon.png') }}"><span
+                    class="padding_left_15">Login</span></a></div>
+        </div>
+    </nav>
+</div>
+<div class="main">
+  <input type="checkbox" id="chk" aria-hidden="true">
+  <div class="login">
+    <form method="POST">
+      <label for="chk" aria-hidden="true">Login</label>
+      {% if message != '' %} <!-- error mesaji var ise-->
+        <input type="nickname" name="nickname" placeholder={{message}} required="">
+        <input type="password" name="password" placeholder={{message}} required="">
+      {% else %}
+        <input type="nickname" name="nickname" placeholder="Nickname" required="">
+        <input type="password" name="password" placeholder="Password" required="">
+      {% endif %}
+      <button>Login</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

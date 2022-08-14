@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>Music</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
+    <!-- style css -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css') }}">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/responsive.css') }}">
+    <!-- fevicon -->
+
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/jquery.mCustomScrollbar.min.css') }}">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- owl stylesheets -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+          media="screen">
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- header section start -->
+<div class="header_section">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        {% if(giris_yapilmis) %}
+        <a class="logo" href="/homePage"><img src="{{ url_for('static',filename='images/logo.png') }}"></a>
+        {% endif %}
+        {% if(not giris_yapilmis) %}
+            <a class="logo" href="/"><img src="{{ url_for('static',filename='images/logo.png') }}"></a>
+        {% endif %}
+        <h1 class="head">MUSIC REVIEWER </h1>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        {% if(giris_yapilmis) %}
+        <div class="search_icon">
+            <a href="/">
+                <img src="{{ url_for('static',filename='images/user-icon.png') }}">
+                <span class="padding_left_15">Log out</span>
+            </a>
+        </div>
+        {% endif %}
+        {% if(not giris_yapilmis) %}
+            <div class="search_icon">
+            <a href="/register">
+                <img src="{{ url_for('static',filename='images/user-icon.png') }}">
+                <span class="padding_left_15">Sign In</span>
+            </a>
+            </div>
+            <div class="search_icon">
+                <a href="/login">
+                <img src="{{ url_for('static',filename='images/user-icon.png') }}">
+                <span class="padding_left_15">Login</span>
+                </a>
+            </div>
+        {% endif %}
+        </div>
+    </nav>
+</div>
+<!-- header section end -->
+
+<!-- arrival section start -->
+<div class="arrival_section layout_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-lg-4">
+                <img src="{{ url_for('static',filename='images/'+album_id+'.jpg') }}" class="image">
+                    <h1 class="album_text">{{sarki_bilgileri[0].upper()}}</h1>
+                    <h2 class="album_text2">{{sarki_bilgileri[1].upper()}}</h2>
+                    <h2 class="album_text2">{{sarki_bilgileri[2].upper()}}</h2>
+                    <h2 class="album_text2">{{sarki_bilgileri[3]}} min</h2>
+                </img>
+            </div>
+
+            <div class="col-12 col-md-7">
+                <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+                <section class="content-item" id="comments">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <form>
+                                    <h3 class="pull-left">New Comment</h3>
+                                        <button type="submit" class="btn btn-normal pull-right">Submit</button>
+                                    <fieldset>
+                                        <div class="row">
+                                            <div class="col-sm-3 col-lg-2 hidden-xs">
+                                            </div>
+                                            <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                                                <textarea href="/sarki/{{sarki_id}}" class="form-control" name = "comment" id="message" placeholder="{{message}}"></textarea>
+                                            </div>
+                                            <div class="star-rating">
+                                                <input type="radio" name="stars" id="star-a" value="5"/>
+                                                <label for="star-a"></label>
+
+                                                <input type="radio" name="stars" id="star-b" value="4"/>
+                                                <label for="star-b"></label>
+
+                                                <input type="radio" name="stars" id="star-c" value="3"/>
+                                                <label for="star-c"></label>
+
+                                                <input type="radio" name="stars" id="star-d" value="2"/>
+                                                <label for="star-d"></label>
+
+                                                <input type="radio" name="stars" id="star-e" value="1"/>
+                                                <label for="star-e"></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+
+                                <h3>Comments</h3>
+
+                                {% for d in degerlendirmeler %}
+                                    <!-- COMMENT START -->
+                                    <div class="media">
+                                        <div class="media-body">
+                                            <h4 class="media-heading">{{d.nickname}}</h4>
+                                            <p>{{d.yorum}}</p>
+                                            <ul class="list-unstyled list-inline media-detail pull-right">
+                                                <div class="star-showing">
+                                                    <!-- dolu yildizlar(verilmis puan kadar) -> label3 -->
+                                                    <!-- bos yildizlar(5 - verilmis puan kadar) -> label2 -->
+                                                    {% if(d.puan == 0) %}
+                                                        <!-- yildizlar bos, puan = 0 -->
+                                                        <label2 for="star-a"></label2>
+                                                        <label2 for="star-b"></label2>
+                                                        <label2 for="star-c"></label2>
+                                                        <label2 for="star-d"></label2>
+                                                        <label2 for="star-e"></label2>
+                                                    {% endif %}
+                                                    {% if(d.puan == 1) %}
+                                                        <!-- 1 yildiz dolu, puan = 1 -->
+                                                        <label3 for="star-a"></label3>
+                                                        <label2 for="star-b"></label2>
+                                                        <label2 for="star-c"></label2>
+                                                        <label2 for="star-d"></label2>
+                                                        <label2 for="star-e"></label2>
+                                                    {% endif %}
+                                                    {% if(d.puan == 2) %}
+                                                        <!-- 2 yildiz dolu, puan = 2 -->
+                                                        <label3 for="star-a"></label3>
+                                                        <label3 for="star-b"></label3>
+                                                        <label2 for="star-c"></label2>
+                                                        <label2 for="star-d"></label2>
+                                                        <label2 for="star-e"></label2>
+                                                    {% endif %}
+                                                    {% if(d.puan == 3) %}
+                                                        <!-- 3 yildiz dolu, puan = 3 -->
+                                                        <label3 for="star-a"></label3>
+                                                        <label3 for="star-b"></label3>
+                                                        <label3 for="star-c"></label3>
+                                                        <label2 for="star-d"></label2>
+                                                        <label2 for="star-e"></label2>
+                                                    {% endif %}
+                                                    {% if(d.puan == 4) %}
+                                                        <!-- 4 yildiz dolu, puan = 4 -->
+                                                        <label3 for="star-a"></label3>
+                                                        <label3 for="star-b"></label3>
+                                                        <label3 for="star-c"></label3>
+                                                        <label3 for="star-d"></label3>
+                                                        <label2 for="star-e"></label2>
+                                                    {% endif %}
+                                                    {% if(d.puan == 5) %}
+                                                        <!-- 5 yildiz dolu, puan = 5 -->
+                                                        <label3 for="star-a"></label3>
+                                                        <label3 for="star-b"></label3>
+                                                        <label3 for="star-c"></label3>
+                                                        <label3 for="star-d"></label3>
+                                                        <label3 for="star-e"></label3>
+                                                    {% endif %}
+                                                </div>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- COMMENT END -->
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- arrival section end -->
+
+
+
+
+
+<!-- Javascript files-->
+<script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/popper.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/jquery-3.0.0.min.js') }}"></script>
+<!-- sidebar -->
+<script src="{{ url_for('static',filename='js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/custom.js') }}"></script>
+<!-- javascript -->
+<script src="{{ url_for('static',filename='js/owl.carousel.js') }}"></script>
+<script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+<script>
+    $('#datepicker').datepicker({
+        uiLibrary: 'bootstrap4'
+    });
+</script>
+</body>
+</html>
